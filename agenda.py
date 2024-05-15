@@ -23,7 +23,17 @@ def entrada_alfa(mensaje="Texto de ejemplo 2"):
                 break
         if alfa == True: return " ".join(entrada)
             
-        
+def entrada_rut(mensaje="Ingresar rut sin guiones ni puntos: "):
+    while True:
+        entrada = input(mensaje)
+        entrada = entrada.upper()
+        if len(entrada) <= 9:
+            if entrada[0:-1].isnumeric() and entrada[-1] in [0,1,2,3,4,5,6,7,8,9,"K"]:
+                return entrada
+            else:
+                print("Rut invalido, asegurese de haberlo escrito bien")
+        else:
+                print("Rut invalido, asegurese de haberlo escrito bien")
 
-hola = entrada_alfa("auuuu: ")
-print(hola)
+mirut = entrada_rut()
+print(mirut)
