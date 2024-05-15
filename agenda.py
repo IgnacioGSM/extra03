@@ -2,7 +2,7 @@
 #import textual as te
 #import numpy as np
 
-def entrada_int(x, mensaje="Texto de ejemplo"):
+def entrada_seleccion_int(x, mensaje="Texto de ejemplo"):
     while True:
         try: entrada = int(input(mensaje))
         except ValueError: print("Error, escriba un número en las opciones de arriba.")
@@ -28,8 +28,8 @@ def entrada_rut(mensaje="Ingresar rut sin guiones ni puntos: "):
         entrada = input(mensaje)
         entrada = entrada.upper()
         if len(entrada) <= 9:
-            if entrada[0:-1].isnumeric() and entrada[-1] in [0,1,2,3,4,5,6,7,8,9,"K"]:
-                return entrada
+            if entrada[0:-1].isnumeric() and (entrada[-1].isnumeric() or entrada[-1] == "K"):
+                return entrada[0:-1] + "-" + entrada[-1]
             else:
                 print("Rut invalido, asegurese de haberlo escrito bien")
         else:
