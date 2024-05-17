@@ -13,7 +13,7 @@ def entrada_seleccion_int(x, mensaje="Elige una opcion: "):
         else:
             if entrada in range(1,x+1):
                 return entrada
-            else: print("No hay una opción con ese número, intente otro.")
+            else: print("No hay una opción con ese número, intente otro")
 
 def entrada_alfa(mensaje="Ingresar palabras: "):
     while True:
@@ -23,7 +23,7 @@ def entrada_alfa(mensaje="Ingresar palabras: "):
         for x in entrada:
             if not x.isalpha():
                 alfa = False
-                print("Error, asegurese de solo escribir letras")
+                print("Error, asegurese de escribir solo letras o espacios")
                 break
         if alfa == True: return " ".join(entrada)
             
@@ -57,7 +57,6 @@ def entrada_alfanumerico(mensaje="Ingresa algo: "):
                 break
         if alfanum: return " ".join(entrada)
 #-----------------------------------------------------------------------------------------
-# FUNCIONES DE ENTRADA
 #-----------------------------------------------------------------------------------------
 
 data = open("data.txt","w+")
