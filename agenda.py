@@ -1,4 +1,4 @@
-#import pandas as pd
+import pandas as pd
 #import textual as te
 #import numpy as np
 
@@ -59,4 +59,11 @@ def entrada_alfanumerico(mensaje="Ingresa algo: "):
 #-----------------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------------
 
-data = open("data.txt","w+")
+try: df = pd.read_csv("contactos.csv")
+except FileNotFoundError:
+    f = open("contactos.csv", "w")
+    f.write("Nombres,ApellidoPaterno,ApellidoMaterno,NumeroTelefono,Direccion,RUT")
+    f.close()
+    df = pd.read_csv("contactos.csv")
+
+print(df)
