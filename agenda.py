@@ -103,10 +103,15 @@ def aniadir_contacto():
     ApellidoM = entrada_alfa("Ingrese el segundo apellido del contacto: ")
     NumeroTelefono = entrada_numero("Ingrese el numero telefónico del contacto: ")
     Direccion = entrada_alfanumerico("Ingrese la dirección del contacto: ")
-    Rut = entrada_rut("Ingrese el RUT del contacto: ")
+    while True:
+        Rut = entrada_rut("Ingrese el RUT del contacto: ")
+        if Rut not in df["RUT"].values:
+            break
+        else:
+            print("Ese rut ya está registrado, ingrese otro")
     nuevo_contacto = [Nombres,ApellidoP,ApellidoM,NumeroTelefono,Direccion,Rut]
     df.loc[len(df)] = nuevo_contacto
-    df.to_csv("contactos.csv")
+    df.to_csv("contactos.csv", index=False)
     print("Su contacto ha sido añadido exitosamente.")
     while True:
         back = entrada_alfa('Escriba "volver" para regresar al menú principal: ')
@@ -120,3 +125,7 @@ while RUN:
         ver_contactos()
     if main_select == 2:
         aniadir_contacto()
+    
+    
+    else:
+        RUN = False
