@@ -1,8 +1,13 @@
 import pandas as pd
+from os import system, name
 #import textual as te
 #import numpy as np
 
-
+RUN = True
+if name == "nt":
+    CLEAR = "cls"           # EN WINDOWS
+else:
+    CLEAR = "clear"         # EN OTROS SISTEMAS OPERATIVOS
 #-----------------------------------------------------------------------------------------
 # FUNCIONES DE ENTRADA
 #-----------------------------------------------------------------------------------------
@@ -58,12 +63,60 @@ def entrada_alfanumerico(mensaje="Ingresa algo: "):
         if alfanum: return " ".join(entrada)
 #-----------------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------------
-
+# ARCHIVO DE DATOS
+#-----------------------------------------------------------------------------------------
 try: df = pd.read_csv("contactos.csv")
 except FileNotFoundError:
     f = open("contactos.csv", "w")
     f.write("Nombres,ApellidoPaterno,ApellidoMaterno,NumeroTelefono,Direccion,RUT")
     f.close()
     df = pd.read_csv("contactos.csv")
+#-----------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------
+# MENUS Y FUNCIONES PRINCIPALES
+#-----------------------------------------------------------------------------------------
+def main_menu():
+    system(CLEAR)
+    print("Que quiere hacer?")
+    print("1- Ver contacto\n2- Añadir contacto\n3- Eliminar contacto\n4- Editar contacto\n5- Buscar contacto\n6- Cerrar agenda")
+    seleccion = entrada_seleccion_int(6)
+    return seleccion
 
-print(df)
+def ver_contactos():
+    while True:
+        system(CLEAR)
+        if df.index.empty:
+            print("No hay ningún contacto agregado")
+            back = entrada_alfa('Escriba "volver" para regresar al menú principal: ')
+            if back.upper() == "VOLVER":
+                return
+        else:
+            print(df)
+            back = entrada_alfa('Escriba "volver" para regresar al menú principal: ')
+            if back.upper() == "VOLVER":
+                return
+
+def aniadir_contacto():
+    system(CLEAR)
+    Nombres = entrada_alfa("Ingrese el nombre o los nombres del contacto: ")
+    ApellidoP = entrada_alfa("Ingrese el primer apellido del contacto: ")
+    ApellidoM = entrada_alfa("Ingrese el segundo apellido del contacto: ")
+    NumeroTelefono = entrada_numero("Ingrese el numero telefónico del contacto: ")
+    Direccion = entrada_alfanumerico("Ingrese la dirección del contacto: ")
+    Rut = entrada_rut("Ingrese el RUT del contacto: ")
+    nuevo_contacto = [Nombres,ApellidoP,ApellidoM,NumeroTelefono,Direccion,Rut]
+    df.loc[len(df)] = nuevo_contacto
+    df.to_csv("contactos.csv")
+    print("Su contacto ha sido añadido exitosamente.")
+    while True:
+        back = entrada_alfa('Escriba "volver" para regresar al menú principal: ')
+        if back.upper() == "VOLVER":
+            return
+#-----------------------------------------------------------------------------------------
+
+while RUN:
+    main_select = main_menu()
+    if main_select == 1:
+        ver_contactos()
+    if main_select == 2:
+        aniadir_contacto()
