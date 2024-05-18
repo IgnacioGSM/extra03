@@ -117,15 +117,29 @@ def aniadir_contacto():
         back = entrada_alfa('Escriba "volver" para regresar al menú principal: ')
         if back.upper() == "VOLVER":
             return
+
+def elimina_contacto(columna):
+    print(f"Eliminación de contacto según {columna}")
+    
 #-----------------------------------------------------------------------------------------
 
 while RUN:
     main_select = main_menu()
     if main_select == 1:
         ver_contactos()
-    if main_select == 2:
+
+    elif main_select == 2:
         aniadir_contacto()
-    
-    
+
+    elif main_select == 3:
+        while True:
+            system(CLEAR)
+            print(df)
+            print("Eliminación de contacto, seleccione un contacto segun uno de sus campos:")
+            for x in range(len(df.columns)):
+                print(f"{x+1}- {df.columns[x]}")
+            selec_columna = entrada_seleccion_int(len(df.columns))
+            elimina_contacto(df.columns[selec_columna-1])
+
     else:
         RUN = False
